@@ -1,0 +1,35 @@
+//
+//  Pokemon.swift
+//  Pokemon
+//
+//  Created by Aliaksandr Miatnikau on 20.03.23.
+//
+
+import Foundation
+
+struct Pokemon: Codable {
+    let abilities: [Ability]?
+    let height: Int?
+    let id: Int?
+    let name: String?
+    let sprites: Sprites?
+    let types: [Type]?
+    let weight: Int?
+    let species: Specie?
+    
+    init(from decoder: Decoder) throws {
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.abilities = try? values.decode([Ability].self, forKey: .abilities)
+        self.height = try? values.decode(Int.self, forKey: .height)
+        self.id = try? values.decode(Int.self, forKey: .id)
+        self.name = try? values.decode(String.self, forKey: .name)
+        self.sprites = try? values.decode(Sprites.self, forKey: .sprites)
+        self.types = try? values.decode([Type].self, forKey: .types)
+        self.weight = try? values.decode(Int.self, forKey: .weight)
+        self.species = try? values.decode(Specie.self, forKey: .species)
+        
+    }
+    
+}

@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Pokemon
 //
-//  Created by Aliaksandr Miatnikau on 21.03.23.
+//  Created by Aliaksandr Miatnikau on 20.03.23.
 //
 
 import UIKit
