@@ -39,10 +39,6 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -51,6 +47,33 @@ extension DetailViewController: UITableViewDataSource {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier(section: indexPath.section))
+        if indexPath.section == 0 {
+            guard let cell = cell as? DetailImageTableViewCell else { return cell ?? UITableViewCell() }
+            if let imageUrl = pokemon?.sprites?.other?.official_artwork?.front_default,
+               let url = URL(string: imageUrl) {
+                Services.shared.downloadImage(url: url) { image, data in
+                    DispatchQueue.main.async {
+                        cell.pokeImageView.image = image
+                    }
+                }
+            }
+            return cell
+            
+        } else {
+            guard let cell = cell as? DetailPropertiesTableViewCell else { return cell ?? UITableViewCell() }
+         
+            cell.lblHeight.text  = "\(pokemon?.height ?? 0) cm"
+            cell.lblWeight.text  = "\(pokemon?.weight ?? 0) kg"
+            cell.lblSpecies.text = pokemon?.species?.name
+            cell.lblType.text    = pokemon?.types?.first?.type.name
+            cell.lblAbility.text = pokemon?.abilities?.first?.ability.name
+            cell.lblNumber.text  = "\(pokemon?.id ?? 0)"
+            
+            return cell
+        }
+    }
 }
 
 extension DetailViewController: UITableViewDelegate {

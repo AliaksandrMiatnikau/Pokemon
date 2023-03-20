@@ -28,6 +28,7 @@
 		A139625D271EEA8200E1D7CC /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A139625C271EEA8200E1D7CC /* ResultViewModel.swift */; };
 		A1E049F52720752700B65702 /* Specie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E049F42720752700B65702 /* Specie.swift */; };
 		F7575D9229C7F9D8003EAB05 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7575D9129C7F9D8003EAB05 /* UIImageView+extension.swift */; };
+		F7575D9729C870CD003EAB05 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7575D9629C870CD003EAB05 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A139625C271EEA8200E1D7CC /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		A1E049F42720752700B65702 /* Specie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specie.swift; sourceTree = "<group>"; };
 		F7575D9129C7F9D8003EAB05 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
+		F7575D9629C870CD003EAB05 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			children = (
 				A12B816D271E5C7200F4A393 /* Request.swift */,
 				A12B816F271E5D2800F4A393 /* Services.swift */,
+				F7575D9629C870CD003EAB05 /* Reachability.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			files = (
 				A12B8170271E5D2800F4A393 /* Services.swift in Sources */,
 				A12B813F271E5B7700F4A393 /* MainViewController.swift in Sources */,
+				F7575D9729C870CD003EAB05 /* Reachability.swift in Sources */,
 				A12B817B271E61F000F4A393 /* Sprites.swift in Sources */,
 				A12B813B271E5B7700F4A393 /* AppDelegate.swift in Sources */,
 				A12B8175271E600500F4A393 /* Api.swift in Sources */,

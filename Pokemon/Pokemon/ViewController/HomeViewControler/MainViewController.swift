@@ -13,13 +13,14 @@ class MainViewController: UIViewController {
     @IBOutlet weak var spinnerView: UIView!
     
     let services = Services.shared
+    let checkNetwork = Reachability.shared
     var results: [ResultViewModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.spinnerView.isHidden = false
-       
+        if checkNetwork.isOK() {
             services.getPokemons { [weak self] pokemos, hasError in
                 if !hasError {
                     self?.results = pokemos
@@ -29,8 +30,12 @@ class MainViewController: UIViewController {
                     }
                 }
             }
+        } else {
+            showAlert()
+            self.spinnerView.isHidden = true
         }
-    
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async { [weak self] in
@@ -69,7 +74,12 @@ class MainViewController: UIViewController {
         }
     }
     
-    
+    func showAlert() {
+        let alertController = UIAlertController(title: "Error", message: "No internet connection", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -101,9 +111,11 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if self.shouldLoadMoreResults(indexPath) {
-           
+            if checkNetwork.isOK() {
                 self.loadNextResult()
-           
+            } else {
+                showAlert()
+            }
         }
     }
     
