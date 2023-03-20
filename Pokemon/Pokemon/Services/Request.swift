@@ -9,7 +9,7 @@ import UIKit
 
 let imageCache = NSCache<NSString, NSData>()
 
-class Request {
+final class Request {
     
     var currentUrl: String?
     

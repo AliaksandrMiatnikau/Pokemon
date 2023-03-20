@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailImageTableViewCell: UITableViewCell {
+final class DetailImageTableViewCell: UITableViewCell {
     
     // MARK: IBOutlets
     @IBOutlet weak var pokeImageView: UIImageView!

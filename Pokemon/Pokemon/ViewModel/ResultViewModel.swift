@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ResultViewModel {
+final class ResultViewModel {
     let result: Result
     let name: String
     var pokeId: String?

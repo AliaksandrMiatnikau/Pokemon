@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainCollectionViewCell: UICollectionViewCell {
+final class MainCollectionViewCell: UICollectionViewCell {
    
     // MARK: IBOutlets
     @IBOutlet weak var cardView: UIView!

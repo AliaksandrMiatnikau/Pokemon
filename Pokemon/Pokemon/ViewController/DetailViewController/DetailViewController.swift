@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
 
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.title = pokemon?.name?.capitalized
         self.tableView.tableFooterView = UIView(frame: .zero)
         self.navigationController?.navigationBar.prefersLargeTitles = true

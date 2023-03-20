@@ -9,7 +9,7 @@ import SystemConfiguration
 import Foundation
 
 // checking internet connection class
-class Reachability {
+final class Reachability {
     
     static let shared = Reachability()
     func isOK() -> Bool {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailPropertiesTableViewCell: UITableViewCell {
+final class DetailPropertiesTableViewCell: UITableViewCell {
 
     // MARK: IBOutlets
     @IBOutlet weak var labelHeight: UILabel!
