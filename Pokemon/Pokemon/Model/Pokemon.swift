@@ -31,5 +31,4 @@ struct Pokemon: Codable {
         self.species = try? values.decode(Specie.self, forKey: .species)
         
     }
-    
 }

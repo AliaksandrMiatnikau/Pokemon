@@ -9,6 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
     
@@ -16,6 +17,7 @@ class MainViewController: UIViewController {
     let checkNetwork = Reachability.shared
     var results: [ResultViewModel]?
     
+    // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,6 +92,7 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: UICollectionView configuration
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -136,7 +139,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         let screenWidth: CGFloat = UIScreen.main.bounds.width
-        let cardWidth: CGFloat = 120
+        let cardWidth: CGFloat = 95
         let minSpace: CGFloat = 20
         let howManyCards = floor(screenWidth / (cardWidth + minSpace))
         let spaces = howManyCards + 1

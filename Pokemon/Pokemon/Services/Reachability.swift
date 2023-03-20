@@ -8,7 +8,7 @@
 import SystemConfiguration
 import Foundation
 
-
+// checking internet connection class
 class Reachability {
     
     static let shared = Reachability()

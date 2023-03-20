@@ -9,10 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
     var pokemon: Pokemon?
     
+    // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = pokemon?.name?.capitalized
@@ -38,6 +40,7 @@ class DetailViewController: UIViewController {
     }
 }
 
+// MARK: UITableView configuration
 extension DetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -64,12 +67,12 @@ extension DetailViewController: UITableViewDataSource {
         } else {
             guard let cell = cell as? DetailPropertiesTableViewCell else { return cell ?? UITableViewCell() }
          
-            cell.lblHeight.text  = "\(pokemon?.height ?? 0) cm"
-            cell.lblWeight.text  = "\(pokemon?.weight ?? 0) kg"
-            cell.lblSpecies.text = pokemon?.species?.name
-            cell.lblType.text    = pokemon?.types?.first?.type.name
-            cell.lblAbility.text = pokemon?.abilities?.first?.ability.name
-            cell.lblNumber.text  = "\(pokemon?.id ?? 0)"
+            cell.labelHeight.text  = "\(pokemon?.height ?? 0) cm"
+            cell.labelWeight.text  = "\(pokemon?.weight ?? 0) kg"
+            cell.labelSpecies.text = pokemon?.species?.name
+            cell.labelType.text    = pokemon?.types?.first?.type.name
+            cell.labelAbility.text = pokemon?.abilities?.first?.ability.name
+            cell.labelNumber.text  = "\(pokemon?.id ?? 0)"
             
             return cell
         }

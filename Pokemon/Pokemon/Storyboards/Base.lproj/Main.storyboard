@@ -46,25 +46,25 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeCollectionViewCell" id="of4-Ah-9hi" customClass="MainCollectionViewCell" customModule="Pokemon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="134"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="134"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="K0b-52-Fe0">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="134"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="95" height="134"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xk6-h8-YZO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="134"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95" height="134"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xQu-Qc-i2P">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
                                                             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="100" id="DSe-IQ-yQD"/>
-                                                                <constraint firstAttribute="height" constant="100" id="NNe-8X-mxt"/>
+                                                                <constraint firstAttribute="width" constant="95" id="DSe-IQ-yQD"/>
+                                                                <constraint firstAttribute="height" constant="95" id="NNe-8X-mxt"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spearow" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0um-iH-b5T">
-                                                            <rect key="frame" x="2" y="110" width="96" height="14.5"/>
+                                                            <rect key="frame" x="2" y="105" width="91" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -90,7 +90,7 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="bgCardView" destination="xk6-h8-YZO" id="wK7-bx-KPS"/>
+                                            <outlet property="cardView" destination="xk6-h8-YZO" id="wK7-bx-KPS"/>
                                             <outlet property="pokeImageView" destination="xQu-Qc-i2P" id="jxb-Jb-Y7M"/>
                                             <outlet property="pokeName" destination="0um-iH-b5T" id="dU9-fK-a3r"/>
                                         </connections>
@@ -219,13 +219,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="lYR-pT-d8r">
                                                             <rect key="frame" x="20" y="84.5" width="69.5" height="45.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-61-YQH">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmv-61-YQH">
                                                                     <rect key="frame" x="0.0" y="0.0" width="69.5" height="24"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0to-62-A3D">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0to-62-A3D">
                                                                     <rect key="frame" x="0.0" y="26" width="69.5" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -372,12 +372,12 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="lblAbility" destination="fP3-6c-NGb" id="kX9-rx-y1W"/>
-                                            <outlet property="lblHeight" destination="7l5-dw-JcJ" id="NZu-de-BJ4"/>
-                                            <outlet property="lblNumber" destination="gTI-yP-bJn" id="DsV-Uu-piN"/>
-                                            <outlet property="lblSpecies" destination="6lf-a0-dIL" id="Z2Y-Sb-Tv9"/>
-                                            <outlet property="lblType" destination="Wga-Sk-3Jo" id="66R-VN-jlA"/>
-                                            <outlet property="lblWeight" destination="0to-62-A3D" id="F4M-vh-7wt"/>
+                                            <outlet property="labelAbility" destination="fP3-6c-NGb" id="kX9-rx-y1W"/>
+                                            <outlet property="labelHeight" destination="7l5-dw-JcJ" id="NZu-de-BJ4"/>
+                                            <outlet property="labelNumber" destination="gTI-yP-bJn" id="DsV-Uu-piN"/>
+                                            <outlet property="labelSpecies" destination="6lf-a0-dIL" id="Z2Y-Sb-Tv9"/>
+                                            <outlet property="labelType" destination="Wga-Sk-3Jo" id="66R-VN-jlA"/>
+                                            <outlet property="labelWeight" destination="0to-62-A3D" id="F4M-vh-7wt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

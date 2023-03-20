@@ -15,5 +15,4 @@ struct Result: Codable {
         self.name = name
         self.url = url
     }
-    
 }

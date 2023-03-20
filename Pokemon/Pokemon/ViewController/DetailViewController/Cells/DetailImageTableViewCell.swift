@@ -9,6 +9,7 @@ import UIKit
 
 class DetailImageTableViewCell: UITableViewCell {
     
+    // MARK: IBOutlets
     @IBOutlet weak var pokeImageView: UIImageView!
 
     override func awakeFromNib() {

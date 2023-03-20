@@ -12,11 +12,10 @@ let imageCache = NSCache<NSString, NSData>()
 class Request {
     
     var currentUrl: String?
-    private(set) var isWorking = false;
     
     func send(url: String, completion:@escaping (Data?) -> ()) {
         self.currentUrl = url
-        self.isWorking = true
+        
         guard let url = URL(string: url) else {
             completion(nil)
             return
@@ -29,11 +28,11 @@ class Request {
             } else {
                 completion(nil);
             }
-            self.isWorking = false
         }
         dataTask.resume()
     }
     
+    // downloading from cache
     static func downloadImage(url: String, completion:@escaping (UIImage?) -> ()) {
         
         guard let url = URL(string: url) else {

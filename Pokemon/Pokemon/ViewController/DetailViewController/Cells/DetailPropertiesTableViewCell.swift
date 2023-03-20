@@ -9,12 +9,13 @@ import UIKit
 
 class DetailPropertiesTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lblHeight: UILabel!
-    @IBOutlet weak var lblWeight: UILabel!
-    @IBOutlet weak var lblSpecies: UILabel!
-    @IBOutlet weak var lblType: UILabel!
-    @IBOutlet weak var lblAbility: UILabel!
-    @IBOutlet weak var lblNumber: UILabel!
+    // MARK: IBOutlets
+    @IBOutlet weak var labelHeight: UILabel!
+    @IBOutlet weak var labelWeight: UILabel!
+    @IBOutlet weak var labelSpecies: UILabel!
+    @IBOutlet weak var labelType: UILabel!
+    @IBOutlet weak var labelAbility: UILabel!
+    @IBOutlet weak var labelNumber: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

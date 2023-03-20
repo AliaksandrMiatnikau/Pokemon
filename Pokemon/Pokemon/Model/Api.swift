@@ -17,5 +17,4 @@ struct Api: Codable {
         self.next = next
         self.results = results
     }
-    
 }
