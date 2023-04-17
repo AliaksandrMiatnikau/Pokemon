@@ -17,11 +17,5 @@ final class DetailPropertiesTableViewCell: UITableViewCell {
     @IBOutlet weak var labelAbility: UILabel!
     @IBOutlet weak var labelNumber: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+  
 }

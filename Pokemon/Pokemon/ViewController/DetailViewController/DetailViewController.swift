@@ -8,11 +8,15 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-
+    
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
     var pokemon: Pokemon?
+    let imageHeightConstant: CGFloat = 214
+    let nilNumber = 0
+    let heightMeasure = "cm"
+    let weigthMeasure = "kg"
     
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
@@ -20,17 +24,17 @@ final class DetailViewController: UIViewController {
         
         self.title = pokemon?.name?.capitalized
         self.tableView.tableFooterView = UIView(frame: .zero)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-    func identifier(section: Int) -> String {
+    private func identifier(section: Int) -> String {
         return section == 0 ? "DetailImageTableViewCell" : "DetailPropertiesTableViewCell"
     }
     
-    func height(section: Int) -> CGFloat {
+    private func height(section: Int) -> CGFloat {
         let screen = UIScreen.main.bounds
         let imageHeight =  UIDevice.current.orientation.isLandscape ? screen.height : screen.width
-        return section == 0 ? imageHeight : 214
+        return section == 0 ? imageHeight : imageHeightConstant
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -68,12 +72,12 @@ extension DetailViewController: UITableViewDataSource {
         } else {
             guard let cell = cell as? DetailPropertiesTableViewCell else { return cell ?? UITableViewCell() }
          
-            cell.labelHeight.text  = "\(pokemon?.height ?? 0) cm"
-            cell.labelWeight.text  = "\(pokemon?.weight ?? 0) kg"
+            cell.labelHeight.text  = "\(pokemon?.height ?? nilNumber) \(heightMeasure)"
+            cell.labelWeight.text  = "\(pokemon?.weight ?? nilNumber) \(weigthMeasure)"
             cell.labelSpecies.text = pokemon?.species?.name
             cell.labelType.text    = pokemon?.types?.first?.type.name
             cell.labelAbility.text = pokemon?.abilities?.first?.ability.name
-            cell.labelNumber.text  = "\(pokemon?.id ?? 0)"
+            cell.labelNumber.text  = "\(pokemon?.id ?? nilNumber)"
             
             return cell
         }

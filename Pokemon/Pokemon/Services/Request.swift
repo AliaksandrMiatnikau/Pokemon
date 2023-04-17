@@ -11,7 +11,7 @@ let imageCache = NSCache<NSString, NSData>()
 
 final class Request {
     
-    var currentUrl: String?
+     var currentUrl: String?
     
     func send(url: String, completion:@escaping (Data?) -> ()) {
         self.currentUrl = url

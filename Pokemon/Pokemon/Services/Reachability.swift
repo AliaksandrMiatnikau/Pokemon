@@ -8,11 +8,14 @@
 import SystemConfiguration
 import Foundation
 
+protocol ReachabilityProtocol {
+      func isOK() -> Bool
+}
 // checking internet connection class
 final class Reachability {
     
-    static let shared = Reachability()
-    func isOK() -> Bool {
+   
+     func isOK() -> Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))

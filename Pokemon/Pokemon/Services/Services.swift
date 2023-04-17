@@ -8,17 +8,25 @@
 import Foundation
 import UIKit
 
+
+
 final class Services {
     
     static let shared = Services()
-    
-    private let pokemonsURL = "https://pokeapi.co/api/v2/pokemon"
     private let request = Request()
+    
+     func getURL() -> String {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "pokeapi.co"
+        components.path = "/api/v2/pokemon"
+        return components.url?.absoluteString ?? "ERROR"
+    }
     
     var lastResult: Api?
     
     func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? = nil) {
-        request.send(url: pokemonsURL) { (data) in
+        request.send(url: getURL()) { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return

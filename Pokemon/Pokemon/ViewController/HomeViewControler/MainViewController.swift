@@ -9,12 +9,24 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    var checkNetwork: ReachabilityProtocol?
+//    var services = ServicesProtocol?()
+    
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
     
+ 
+    
+    private let numberOfCellsToDownloadNew = 3
+    private let cardWidth: CGFloat = 95
+    private let minSpace: CGFloat = 20
+    private let alertTitle = "Error"
+    private let alertMessage = "No internet connection"
+    private let alertAnswer = "OK"
+    
     let services = Services.shared
-    let checkNetwork = Reachability.shared
+//    let checkNetwork = ReachabilityProtocol?
     var results: [ResultViewModel]?
     
     // MARK: UIViewController Lifecycle
@@ -22,7 +34,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         self.spinnerView.isHidden = false
-        if checkNetwork.isOK() {
+        if ((checkNetwork?.isOK()) != nil) {
             services.getPokemons { [weak self] pokemos, hasError in
                 if !hasError {
                     self?.results = pokemos
@@ -36,7 +48,6 @@ final class MainViewController: UIViewController {
             showAlert()
             self.spinnerView.isHidden = true
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,24 +56,18 @@ final class MainViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    
-    
-    func shouldLoadMoreResults(_ indexPath:IndexPath ) -> Bool {
+    private func shouldLoadMoreResults(_ indexPath:IndexPath ) -> Bool {
         
         guard let quantity = results?.count else { return false }
         if quantity == 0 { return false }
-        if indexPath.row == (quantity - 3) {
+        if indexPath.row == (quantity -  numberOfCellsToDownloadNew) {
             return true
         } else {
             return false
         }
     }
     
-    func loadNextResult() {
+    private func loadNextResult() {
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { [weak self] in
             self?.services.getMorePokemons { [weak self] pokemos, hasError in
@@ -76,9 +81,9 @@ final class MainViewController: UIViewController {
         }
     }
     
-    func showAlert() {
-        let alertController = UIAlertController(title: "Error", message: "No internet connection", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+    private func showAlert() {
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: alertAnswer, style: .default, handler: nil)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
@@ -114,7 +119,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if self.shouldLoadMoreResults(indexPath) {
-            if checkNetwork.isOK() {
+            if ((checkNetwork?.isOK()) != nil) {
                 self.loadNextResult()
             } else {
                 showAlert()
@@ -139,8 +144,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
         let screenWidth: CGFloat = UIScreen.main.bounds.width
-        let cardWidth: CGFloat = 95
-        let minSpace: CGFloat = 20
+        let cardWidth = cardWidth
+        let minSpace = minSpace
         let howManyCards = floor(screenWidth / (cardWidth + minSpace))
         let spaces = howManyCards + 1
         let margin = (screenWidth - (cardWidth * howManyCards)) / spaces
