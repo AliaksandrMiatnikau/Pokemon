@@ -8,19 +8,12 @@
 import UIKit
 
 final class MainViewController: UIViewController {
-    
-    var checkNetwork = Reachability.shared
+    var reachability: ReachabilityProtocol?
     var VM: MainViewModelProtocol?
-    //    var checkNetwork: ReachabilityProtocol?
-    
-    
     
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
-    
-    
-    
     
     private let cardWidth: CGFloat = 95
     private let minSpace: CGFloat = 20
@@ -33,15 +26,14 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         VM = MainViewModel()
+        reachability = Reachability()
         
         self.spinnerView.isHidden = false
-        
-        if checkNetwork.isOK() {
+        if reachability?.isOK() == true {
             VM?.loadMainData{ [weak self] pokemos in
                 DispatchQueue.main.async {
                     self?.spinnerView.isHidden = true
                     self?.collectionView.reloadData()
-                    
                 }
             }
             
@@ -56,7 +48,6 @@ final class MainViewController: UIViewController {
             self?.collectionView.reloadData()
         }
     }
-    
     
     
     private func showAlert() {
@@ -98,7 +89,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if VM?.shouldLoadMoreResults(indexPath, numberOfCells: VM?.numberOfCellsToDownload() ?? 3) == true {
             
-            if checkNetwork.isOK()   {
+            if reachability?.isOK() == true   {
                 VM?.loadNextResult()
                 DispatchQueue.main.async { [weak self] in
                     self?.collectionView.reloadData()

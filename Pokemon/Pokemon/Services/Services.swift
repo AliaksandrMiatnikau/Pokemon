@@ -8,14 +8,19 @@
 import Foundation
 import UIKit
 
+protocol ServicesProtocol {
+    func getURL() -> String
+    func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? )
+    func getMorePokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())?)
+    func getPokemon(url: String,  completion: ((Pokemon?, _ hasError: Bool) -> ())?)
+    func downloadImage(url: URL, completion:@escaping (UIImage?, Data?) -> ())
+}
 
-
-final class Services {
+final class Services: ServicesProtocol {
     
-    static let shared = Services()
-    private let request = Request()
+    let request: RequestProtocol? = Request()
     
-     func getURL() -> String {
+    func getURL() -> String {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "pokeapi.co"
@@ -26,7 +31,7 @@ final class Services {
     var lastResult: Api?
     
     func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? = nil) {
-        request.send(url: getURL()) { (data) in
+        request?.send(url: getURL()) { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return
@@ -60,7 +65,7 @@ final class Services {
             completion?(nil, true)
             return
         }
-        request.send(url: url) { (data) in
+        request?.send(url: url) { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return
@@ -89,7 +94,7 @@ final class Services {
     }
     
     func getPokemon(url: String,  completion: ((Pokemon?, _ hasError: Bool) -> ())? = nil) {
-        request.send(url: url) { (data) in
+        request?.send(url: url) { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return

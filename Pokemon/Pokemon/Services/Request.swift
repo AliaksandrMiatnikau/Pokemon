@@ -9,18 +9,21 @@ import UIKit
 
 let imageCache = NSCache<NSString, NSData>()
 
-final class Request {
-    
-     var currentUrl: String?
+protocol RequestProtocol {
+    func send(url: String, completion:@escaping (Data?) -> ())
+   static func downloadImage(url: String, completion:@escaping (UIImage?) -> ())
+}
+
+final class Request: RequestProtocol{
+   
+    var currentUrl: String?
     
     func send(url: String, completion:@escaping (Data?) -> ()) {
         self.currentUrl = url
-        
         guard let url = URL(string: url) else {
             completion(nil)
             return
         }
-        
         let session = URLSession.shared
         let dataTask = session.dataTask(with: url) { (data, response, error) in
             if (error == nil && data != nil) {

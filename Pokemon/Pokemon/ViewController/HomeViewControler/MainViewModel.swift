@@ -20,10 +20,8 @@ protocol MainViewModelProtocol {
 
 final class MainViewModel: MainViewModelProtocol {
     
-    let services = Services.shared
-    let checkNetwork = Reachability.shared
+    let services: ServicesProtocol? = Services()
     private let numberOfCellsToDownloadNew = 3
-    
     var results: [ResultViewModel]?
     
     func resultData() -> [ResultViewModel]? {
@@ -33,8 +31,9 @@ final class MainViewModel: MainViewModelProtocol {
     func numberOfCellsToDownload() -> Int {
         return numberOfCellsToDownloadNew
     }
+    
     func loadMainData(completion: @escaping ([ResultViewModel]?) -> ())  {
-        services.getPokemons { [weak self] pokemos, hasError in
+        services?.getPokemons { [weak self] pokemos, hasError in
             if !hasError {
                 self?.results = pokemos
                 completion(pokemos)
@@ -57,7 +56,7 @@ final class MainViewModel: MainViewModelProtocol {
     internal func loadNextResult() {
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { [weak self] in
-            self?.services.getMorePokemons { [weak self] pokemos, hasError in
+            self?.services?.getMorePokemons { [weak self] pokemos, hasError in
                 if !hasError {
                     pokemos?.forEach({ self?.results?.append($0) })
                 }

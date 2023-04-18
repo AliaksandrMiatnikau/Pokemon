@@ -11,7 +11,7 @@ final class DetailViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
+    var services: ServicesProtocol? = Services()
     var VM: DetailViewModelProtocol?
     let imageHeightConstant: CGFloat = 214
     let nilNumber = 0
@@ -60,7 +60,7 @@ extension DetailViewController: UITableViewDataSource {
             guard let cell = cell as? DetailImageTableViewCell else { return cell ?? UITableViewCell() }
             if let imageUrl = VM?.pokemonImageURL,
                let url = URL(string: imageUrl) {
-                Services.shared.downloadImage(url: url) { image, data in
+               services?.downloadImage(url: url) { image, data in
                     DispatchQueue.main.async {
                         cell.pokeImageView.image = image
                     }
