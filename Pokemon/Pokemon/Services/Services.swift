@@ -112,7 +112,8 @@ final class Services {
             if error == nil, let data = data {
                 completion(UIImage(data: data), data)
             } else {
-                completion(nil, nil);
+                completion(nil, nil)
+                print("Unable to download image")
             }
         }
         dataTask.resume()

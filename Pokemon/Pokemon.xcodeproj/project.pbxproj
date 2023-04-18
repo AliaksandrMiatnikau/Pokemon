@@ -27,6 +27,8 @@
 		A12B8182271E696200F4A393 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12B8181271E696200F4A393 /* MainCollectionViewCell.swift */; };
 		A139625D271EEA8200E1D7CC /* ResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A139625C271EEA8200E1D7CC /* ResultViewModel.swift */; };
 		A1E049F52720752700B65702 /* Specie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E049F42720752700B65702 /* Specie.swift */; };
+		F743DCE029ED91A0006B0020 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743DCDF29ED91A0006B0020 /* MainViewModel.swift */; };
+		F743DCE329EDE2BB006B0020 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F743DCE229EDE2BB006B0020 /* DetailViewModel.swift */; };
 		F7575D9229C7F9D8003EAB05 /* UIImageView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7575D9129C7F9D8003EAB05 /* UIImageView+extension.swift */; };
 		F7575D9729C870CD003EAB05 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7575D9629C870CD003EAB05 /* Reachability.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,8 @@
 		A12B8181271E696200F4A393 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		A139625C271EEA8200E1D7CC /* ResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewModel.swift; sourceTree = "<group>"; };
 		A1E049F42720752700B65702 /* Specie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specie.swift; sourceTree = "<group>"; };
+		F743DCDF29ED91A0006B0020 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		F743DCE229EDE2BB006B0020 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		F7575D9129C7F9D8003EAB05 /* UIImageView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+extension.swift"; sourceTree = "<group>"; };
 		F7575D9629C870CD003EAB05 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				A124DA73271F6D7C0011F8F0 /* DetailViewController.swift */,
+				F743DCE229EDE2BB006B0020 /* DetailViewModel.swift */,
 				A124DA75271F706C0011F8F0 /* Cells */,
 			);
 			path = DetailViewController;
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				A12B813E271E5B7700F4A393 /* MainViewController.swift */,
+				F743DCDF29ED91A0006B0020 /* MainViewModel.swift */,
 				A12B8180271E694100F4A393 /* Cells */,
 			);
 			path = HomeViewControler;
@@ -280,6 +286,8 @@
 				A12B8173271E5FD700F4A393 /* Pokemon.swift in Sources */,
 				A12B817D271E62FB00F4A393 /* Type.swift in Sources */,
 				A12B8179271E614900F4A393 /* Ability.swift in Sources */,
+				F743DCE029ED91A0006B0020 /* MainViewModel.swift in Sources */,
+				F743DCE329EDE2BB006B0020 /* DetailViewModel.swift in Sources */,
 				A12B8182271E696200F4A393 /* MainCollectionViewCell.swift in Sources */,
 				A139625D271EEA8200E1D7CC /* ResultViewModel.swift in Sources */,
 				A1E049F52720752700B65702 /* Specie.swift in Sources */,
@@ -437,7 +445,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.abraaoan.PokemonII;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -456,7 +464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.abraaoan.PokemonII;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pokemon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

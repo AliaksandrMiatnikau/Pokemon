@@ -9,41 +9,42 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    var checkNetwork: ReachabilityProtocol?
-//    var services = ServicesProtocol?()
+    var checkNetwork = Reachability.shared
+    var VM: MainViewModelProtocol?
+    //    var checkNetwork: ReachabilityProtocol?
+    
+    
     
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
     
- 
     
-    private let numberOfCellsToDownloadNew = 3
+    
+    
     private let cardWidth: CGFloat = 95
     private let minSpace: CGFloat = 20
     private let alertTitle = "Error"
     private let alertMessage = "No internet connection"
     private let alertAnswer = "OK"
     
-    let services = Services.shared
-//    let checkNetwork = ReachabilityProtocol?
-    var results: [ResultViewModel]?
     
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        VM = MainViewModel()
         
         self.spinnerView.isHidden = false
-        if ((checkNetwork?.isOK()) != nil) {
-            services.getPokemons { [weak self] pokemos, hasError in
-                if !hasError {
-                    self?.results = pokemos
-                    DispatchQueue.main.async {
-                        self?.collectionView.reloadData()
-                        self?.spinnerView.isHidden = true
-                    }
+        
+        if checkNetwork.isOK() {
+            VM?.loadMainData{ [weak self] pokemos in
+                DispatchQueue.main.async {
+                    self?.spinnerView.isHidden = true
+                    self?.collectionView.reloadData()
+                    
                 }
             }
+            
         } else {
             showAlert()
             self.spinnerView.isHidden = true
@@ -56,30 +57,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    private func shouldLoadMoreResults(_ indexPath:IndexPath ) -> Bool {
-        
-        guard let quantity = results?.count else { return false }
-        if quantity == 0 { return false }
-        if indexPath.row == (quantity -  numberOfCellsToDownloadNew) {
-            return true
-        } else {
-            return false
-        }
-    }
     
-    private func loadNextResult() {
-        
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { [weak self] in
-            self?.services.getMorePokemons { [weak self] pokemos, hasError in
-                if !hasError {
-                    pokemos?.forEach({ self?.results?.append($0) })
-                    DispatchQueue.main.async { [weak self] in
-                        self?.collectionView.reloadData()
-                    }
-                }
-            }
-        }
-    }
     
     private func showAlert() {
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
@@ -104,12 +82,12 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results?.count ?? 0
+        return VM?.numberOfRows() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCollectionViewCell", for: indexPath) as! MainCollectionViewCell
-        guard let poke = results?[indexPath.row] else { return cell }
+        guard let poke = VM?.resultData()?[indexPath.row] else { return cell }
         cell.pokeName.text = poke.name.capitalized
         if let url = poke.mainImage {
             cell.pokeImageView.getImage(url: url)
@@ -118,9 +96,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if self.shouldLoadMoreResults(indexPath) {
-            if ((checkNetwork?.isOK()) != nil) {
-                self.loadNextResult()
+        if VM?.shouldLoadMoreResults(indexPath, numberOfCells: VM?.numberOfCellsToDownload() ?? 3) == true {
+            
+            if checkNetwork.isOK()   {
+                VM?.loadNextResult()
+                DispatchQueue.main.async { [weak self] in
+                    self?.collectionView.reloadData()
+                }
             } else {
                 showAlert()
             }
@@ -131,9 +113,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "DetailViewController")
-        if let vc = viewController as? DetailViewController {
-            guard let poke = results?[indexPath.row] else { return }
-            vc.pokemon = poke.pokemon
+        if let vc = viewController as? DetailViewController
+            {
+            vc.VM = VM?.viewModelForSelectedRow(for: indexPath)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

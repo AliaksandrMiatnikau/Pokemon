@@ -12,7 +12,7 @@ final class DetailViewController: UIViewController {
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
-    var pokemon: Pokemon?
+    var VM: DetailViewModelProtocol?
     let imageHeightConstant: CGFloat = 214
     let nilNumber = 0
     let heightMeasure = "cm"
@@ -21,8 +21,7 @@ final class DetailViewController: UIViewController {
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = pokemon?.name?.capitalized
+        self.title = VM?.pokemonName.capitalized
         self.tableView.tableFooterView = UIView(frame: .zero)
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -59,7 +58,7 @@ extension DetailViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.identifier(section: indexPath.section))
         if indexPath.section == 0 {
             guard let cell = cell as? DetailImageTableViewCell else { return cell ?? UITableViewCell() }
-            if let imageUrl = pokemon?.sprites?.other?.official_artwork?.front_default,
+            if let imageUrl = VM?.pokemonImageURL,
                let url = URL(string: imageUrl) {
                 Services.shared.downloadImage(url: url) { image, data in
                     DispatchQueue.main.async {
@@ -71,13 +70,13 @@ extension DetailViewController: UITableViewDataSource {
             
         } else {
             guard let cell = cell as? DetailPropertiesTableViewCell else { return cell ?? UITableViewCell() }
-         
-            cell.labelHeight.text  = "\(pokemon?.height ?? nilNumber) \(heightMeasure)"
-            cell.labelWeight.text  = "\(pokemon?.weight ?? nilNumber) \(weigthMeasure)"
-            cell.labelSpecies.text = pokemon?.species?.name
-            cell.labelType.text    = pokemon?.types?.first?.type.name
-            cell.labelAbility.text = pokemon?.abilities?.first?.ability.name
-            cell.labelNumber.text  = "\(pokemon?.id ?? nilNumber)"
+            
+            cell.labelHeight.text  = "\(VM?.pokemonHeight ?? nilNumber) \(heightMeasure)"
+            cell.labelWeight.text  = "\(VM?.pokemonWeight ?? nilNumber) \(weigthMeasure)"
+            cell.labelSpecies.text = VM?.pokemonSpecies
+            cell.labelType.text    = VM?.pokemonType
+            cell.labelAbility.text = VM?.pokemoneAbilities
+            cell.labelNumber.text  = "\(VM?.pokemonNumber ?? nilNumber)"
             
             return cell
         }

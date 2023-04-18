@@ -12,8 +12,8 @@ protocol ReachabilityProtocol {
       func isOK() -> Bool
 }
 // checking internet connection class
-final class Reachability {
-    
+final class Reachability: ReachabilityProtocol {
+    static let shared = Reachability()
    
      func isOK() -> Bool {
         

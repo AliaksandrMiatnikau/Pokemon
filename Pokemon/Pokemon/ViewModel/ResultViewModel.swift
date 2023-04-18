@@ -29,7 +29,7 @@ final class ResultViewModel {
         self.getPokemonDetail()
     }
     
-    func getPokemonDetail() {
+    private func getPokemonDetail() {
         let service = Services()
         service.getPokemon(url: self.result.url) { [weak self] pokemon, hasError  in
             self?.pokemon = pokemon
