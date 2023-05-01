@@ -12,11 +12,15 @@ final class DetailViewController: UIViewController {
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     var services: ServicesProtocol? = Services()
+    var reachability: ReachabilityProtocol?
     var VM: DetailViewModelProtocol?
     let imageHeightConstant: CGFloat = 214
     let nilNumber = 0
     let heightMeasure = "cm"
     let weigthMeasure = "kg"
+    private let alertTitle = "Error"
+    private let alertMessage = "Internet connection lost"
+    private let alertAnswer = "OK"
     
     // MARK: UIViewController Lifecycle
     override func viewDidLoad() {
@@ -24,6 +28,11 @@ final class DetailViewController: UIViewController {
         self.title = VM?.pokemonName.capitalized
         self.tableView.tableFooterView = UIView(frame: .zero)
         self.navigationController?.navigationBar.prefersLargeTitles = false
+        reachability = Reachability()
+        if reachability?.isOK()  == false {
+            showAlert()
+        }
+        
     }
     
     private func identifier(section: Int) -> String {
@@ -34,6 +43,13 @@ final class DetailViewController: UIViewController {
         let screen = UIScreen.main.bounds
         let imageHeight =  UIDevice.current.orientation.isLandscape ? screen.height : screen.width
         return section == 0 ? imageHeight : imageHeightConstant
+    }
+    
+    private func showAlert() {
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: alertAnswer, style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -60,7 +76,7 @@ extension DetailViewController: UITableViewDataSource {
             guard let cell = cell as? DetailImageTableViewCell else { return cell ?? UITableViewCell() }
             if let imageUrl = VM?.pokemonImageURL,
                let url = URL(string: imageUrl) {
-               services?.downloadImage(url: url) { image, data in
+                services?.downloadImage(url: url) { image, data in
                     DispatchQueue.main.async {
                         cell.pokeImageView.image = image
                     }

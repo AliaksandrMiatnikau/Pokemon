@@ -13,7 +13,7 @@ protocol MainViewModelProtocol {
     func numberOfRows() -> Int
     func loadMainData(completion: @escaping ([ResultViewModel]?) -> ())
     func shouldLoadMoreResults(_ indexPath:IndexPath, numberOfCells: Int ) -> Bool
-    func loadNextResult()
+    func loadNextResult(completion: @escaping ([ResultViewModel]?) -> ())
     func viewModelForSelectedRow(for indexPath: IndexPath) -> DetailViewModelProtocol?
 }
 
@@ -53,12 +53,15 @@ final class MainViewModel: MainViewModelProtocol {
         }
     }
     
-    internal func loadNextResult() {
+    internal func loadNextResult(completion: @escaping ([ResultViewModel]?) -> ())  {
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async { [weak self] in
             self?.services?.getMorePokemons { [weak self] pokemos, hasError in
                 if !hasError {
                     pokemos?.forEach({ self?.results?.append($0) })
+                    DispatchQueue.main.async {
+                        completion(self?.results)
+                    }
                 }
             }
         }

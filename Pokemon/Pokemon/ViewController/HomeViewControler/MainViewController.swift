@@ -15,10 +15,11 @@ final class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
     
+    @IBOutlet weak var networkStatusLabel: UIView!
     private let cardWidth: CGFloat = 95
     private let minSpace: CGFloat = 20
     private let alertTitle = "Error"
-    private let alertMessage = "No internet connection"
+    private let alertMessage = "Internet connection lost"
     private let alertAnswer = "OK"
     
     
@@ -39,6 +40,7 @@ final class MainViewController: UIViewController {
             
         } else {
             showAlert()
+            networkStatusLabel.isHidden = false
             self.spinnerView.isHidden = true
         }
     }
@@ -88,24 +90,22 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if VM?.shouldLoadMoreResults(indexPath, numberOfCells: VM?.numberOfCellsToDownload() ?? 3) == true {
-            
             if reachability?.isOK() == true   {
-                VM?.loadNextResult()
-                DispatchQueue.main.async { [weak self] in
-                    self?.collectionView.reloadData()
+                VM?.loadNextResult { [weak self] results in
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
+                    }
                 }
             } else {
                 showAlert()
             }
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "DetailViewController")
-        if let vc = viewController as? DetailViewController
-            {
+        if let vc = viewController as? DetailViewController {
             vc.VM = VM?.viewModelForSelectedRow(for: indexPath)
             self.navigationController?.pushViewController(vc, animated: true)
         }

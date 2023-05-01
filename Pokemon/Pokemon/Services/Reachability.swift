@@ -9,12 +9,12 @@ import SystemConfiguration
 import Foundation
 
 protocol ReachabilityProtocol {
-      func isOK() -> Bool
+    func isOK() -> Bool
 }
 // checking internet connection class
- final class Reachability: ReachabilityProtocol {
-   
-     func isOK() -> Bool {
+final class Reachability: ReachabilityProtocol {
+    
+    func isOK() -> Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))

@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol ServicesProtocol {
-    func getURL() -> String
     func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? )
     func getMorePokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())?)
     func getPokemon(url: String,  completion: ((Pokemon?, _ hasError: Bool) -> ())?)
@@ -19,19 +18,11 @@ protocol ServicesProtocol {
 final class Services: ServicesProtocol {
     
     let request: RequestProtocol? = Request()
-    
-    func getURL() -> String {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "pokeapi.co"
-        components.path = "/api/v2/pokemon"
-        return components.url?.absoluteString ?? "ERROR"
-    }
-    
+    let router: MyRouterProtocol? = NetworkRouter()
     var lastResult: Api?
     
     func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? = nil) {
-        request?.send(url: getURL()) { (data) in
+        request?.send(url: router?.getURL() ?? "") { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return
