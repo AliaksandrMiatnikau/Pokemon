@@ -22,7 +22,8 @@ final class Services: ServicesProtocol {
     var lastResult: Api?
     
     func getPokemons(completion: (([ResultViewModel]?, _ hasError: Bool) -> ())? = nil) {
-        request?.send(url: router?.getURL() ?? "") { (data) in
+        let url = router?.getURL() ?? ""
+        request?.send(url: url) { (data) in
             guard let jsonData = data else{
                 completion?(nil, true)
                 return

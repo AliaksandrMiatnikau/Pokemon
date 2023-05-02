@@ -15,7 +15,7 @@ final class MainViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var spinnerView: UIView!
     
-    @IBOutlet weak var networkStatusLabel: UIView!
+
     private let cardWidth: CGFloat = 95
     private let minSpace: CGFloat = 20
     private let alertTitle = "Error"
@@ -40,7 +40,6 @@ final class MainViewController: UIViewController {
             
         } else {
             showAlert()
-            networkStatusLabel.isHidden = false
             self.spinnerView.isHidden = true
         }
     }
